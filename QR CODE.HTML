@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <STYLE>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+.container h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#qrInput {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #5e60ce;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #4ea8de;
+}
+
+#qrBox {
+  margin-top: 20px;
+  display: none;
+}
+
+#qrImage {
+  width: 200px;
+  height: 200px;
+}
+
+#downloadBtn {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  background: #28a745;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 5px;
+}
+
+.credit {
+  margin-top: 25px;
+  font-size: 12px;
+  color: #666;
+}
+
+  </STYLE>
+</head>
+<body>
+  <div class="container">
+    <h1>🔳 QR Code Generator</h1>
+    <input type="text" id="qrInput" placeholder="Enter URL or Text" />
+    <button onclick="generateQR()">Generate QR</button>
+    <div id="qrBox">
+      <img id="qrImage" src="" alt="QR Code" />
+      <a id="downloadBtn" href="#" download="qr-code.png">Download QR</a>
+    </div>
+    <p class="credit">Made with ❤️ by Anmol Sandhu</p>
+  </div>
+  <SCRIPT>
+    function generateQR() {
+  const input = document.getElementById("qrInput").value;
+  const qrImage = document.getElementById("qrImage");
+  const qrBox = document.getElementById("qrBox");
+  const downloadBtn = document.getElementById("downloadBtn");
+
+  if (input.trim() === "") {
+    alert("Please enter text or URL!");
+    return;
+  }
+
+  const qrAPI = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(input)}&size=200x200`;
+
+  qrImage.src = qrAPI;
+  qrImage.onload = () => {
+    qrBox.style.display = "block";
+    downloadBtn.href = qrAPI;
+  };
+}
+
+  </SCRIPT>
+</body>
+</html>
